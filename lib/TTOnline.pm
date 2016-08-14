@@ -14,7 +14,10 @@ post '/' => sub {
 
   my $tt = session('tt') || {};
   if( $action eq 'add' ){
-    $tt->{$name} = $value;
+    my $tmp;
+    my $str = "\$tmp = $value;";
+    eval $str;
+    $tt->{$name} = $tmp;
   }
   elsif( $action eq 'del' ){
     delete $tt->{$name};
@@ -24,7 +27,11 @@ post '/' => sub {
 };
 
 get 'ajax/preview' => sub {
-  return to_json({ message => 'Hello World!'});
+  my $code = param('code');
+  my $template = Template->new();
+  my $html;
+  $template->process(\$code, session('tt'),\$html);
+  return to_json({ html => $html });
 };
 
 true;

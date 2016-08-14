@@ -35,13 +35,12 @@
 </div>
 <script type="text/javascript">
   $("#preview").on('click', function(req){
-    $.getJSON( "/ajax/preview", function(data) {
-      console.log( data );
+    $.getJSON( "/ajax/preview",{ code: $("#code").val()  }, function(data) {
+      $("#view").empty();
+      $("#view").append(data.html);
     })
     .fail(function() {
       console.log( "error" );
     })
   });
-
-
 </script>
