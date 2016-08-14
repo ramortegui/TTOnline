@@ -6,6 +6,6 @@
   <title>TTOnline</title>
 </head>
 <body>
-<% content %>
+[% content %]
 </body>
 </html>
