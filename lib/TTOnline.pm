@@ -22,4 +22,9 @@ post '/' => sub {
   session->write('tt',$tt);
   redirect "/";
 };
+
+get 'ajax/preview' => sub {
+  return to_json({ message => 'Hello World!'});
+};
+
 true;

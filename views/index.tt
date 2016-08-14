@@ -27,9 +27,21 @@
   </theader>
   <tbody>
     <tr>
-      <td><textarea id="code"></textarea><button>Preview</button></td>
-      <td><div id="preview"></div></td>
+      <td><textarea id="code"></textarea><button id="preview">Preview</button></td>
+      <td><div id="view"></div></td>
     </tr>
   </tbody>
   </table>
 </div>
+<script type="text/javascript">
+  $("#preview").on('click', function(req){
+    $.getJSON( "/ajax/preview", function(data) {
+      console.log( data );
+    })
+    .fail(function() {
+      console.log( "error" );
+    })
+  });
+
+
+</script>
