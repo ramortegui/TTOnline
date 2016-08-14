@@ -8,29 +8,17 @@ get '/' => sub {
 };
 
 post '/' => sub {
-  my $name = param('name');
-  my $value = param('value');
-  my $action = param('action');
-
-  my $tt = session('tt') || {};
-  if( $action eq 'add' ){
-    my $tmp;
-    my $str = "\$tmp = $value;";
-    eval $str;
-    $tt->{$name} = $tmp;
-  }
-  elsif( $action eq 'del' ){
-    delete $tt->{$name};
-  }
-  session->write('tt',$tt);
+  my $vars = param('vars');
+  session->write('vars',$vars);
   redirect "/";
 };
 
 get 'ajax/preview' => sub {
   my $code = param('code');
   my $template = Template->new();
+  my $variables = from_json ( session('vars') );
   my $html;
-  $template->process(\$code, session('tt'),\$html);
+  $template->process(\$code, $variables ,\$html);
   return to_json({ html => $html });
 };
 

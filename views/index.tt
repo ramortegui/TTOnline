@@ -1,21 +1,6 @@
 <div id="variables">
-  <div>
-  <ul>
-    [% FOREACH key IN session.tt.keys %]
-      <li>[% key %] - [% session.tt.$key %]
-        <form method="post">
-        <input type="hidden" name="action" value="del">
-        <input type="hidden" name="name" value="[% key %]">
-        <input type="submit" value="del">
-        </form>
-      </li>
-    [% END %]
-  </ul>
-  </div>
   <form method="post">
-    Name: <input type="text" name="name" value="">
-    Value: <input type="text" name="value" value="">
-    <input type="hidden" name="action" value="add">
+    Variables: <textarea name="vars">[% session.vars %]</textarea>
     <input type="submit" value="Add">
   </form>
 </div>
