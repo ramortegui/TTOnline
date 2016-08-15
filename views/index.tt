@@ -1,26 +1,22 @@
-<div id="variables">
-  <form method="post">
-    Variables: <textarea name="vars">[% session.vars %]</textarea>
-    <input type="submit" value="Add">
-  </form>
-</div>
-<div id="">
-  <table>
-  <theader>
-    <th>Code</th>
-    <th>Preview</th>
-  </theader>
-  <tbody>
-    <tr>
-      <td><textarea id="code"></textarea><button id="preview">Preview</button></td>
-      <td><div id="view"></div></td>
-    </tr>
-  </tbody>
-  </table>
+<div>
+  <div>
+    <div>
+      <h2>Variables</h2><textarea name="vars" id="vars" class="only_tt_online">[% session.vars %]</textarea>
+    </div>
+    <div>
+      <h2>Code</h2><textarea id="code" class="only_tt_online">[% session.code %]</textarea>
+    </div>
+    <div>
+      <button class="btn btn-primary btn-lg" id="preview">Preview</button></td>
+    </div>
+  </div>
+  <div>
+      <div id="view"></div>
+  </div>
 </div>
 <script type="text/javascript">
   $("#preview").on('click', function(req){
-    $.getJSON( "/ajax/preview",{ code: $("#code").val()  }, function(data) {
+    $.getJSON( "/ajax/preview",{ code: $("#code").val(), vars: $("#vars").val() }, function(data) {
       $("#view").empty();
       $("#view").append(data.html);
     })
@@ -29,3 +25,4 @@
     })
   });
 </script>
+</div>

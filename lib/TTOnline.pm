@@ -7,16 +7,13 @@ get '/' => sub {
     template 'index';
 };
 
-post '/' => sub {
-  my $vars = param('vars');
-  session->write('vars',$vars);
-  redirect "/";
-};
-
 get 'ajax/preview' => sub {
   my $code = param('code');
+  my $vars = param('vars');
+  session 'code' => $code;
+  session 'vars' => $vars;
   my $template = Template->new();
-  my $variables = from_json ( session('vars') );
+  my $variables = from_json ($vars );
   my $html;
   $template->process(\$code, $variables ,\$html);
   return to_json({ html => $html });
